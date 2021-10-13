@@ -5,14 +5,16 @@ const path = require('path');
 
 const sendJson = require("/app/projectDD/test.json")
 
+app.use(express.static("./static/"))
+
 app.get("/", (request, response) => {
-  response.sendFile(path.join(__dirname, '/static/index.html'))
+  response.sendFile('index.html')
 
 }).listen(port, () => {
   console.log(`The server has started and is listening on port number: ${port}`);
 });
 
-export function sendJsonData() {
+ function sendJsonData() {
   app.post('/', function (req, res) {
     console.log(sendJson);
 
