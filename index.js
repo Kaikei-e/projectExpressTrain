@@ -10,26 +10,24 @@ app.use(express.static("./static/"))
 app.get("/", (request, response) => {
   response.sendFile('index.html')
 
+}).post('/', function (req, res) {
+
+  const request = require("request")
+  const options = {
+    method: 'POST',
+    json: sendJson,
+    url: "localhost:8085/api/v1/parseJson",
+  }
+  request(options, function (error, response, body) {
+    response.redirect("/localhost:8085/api/v1/parseJson")
+  });
+
+
+
 }).listen(port, () => {
   console.log(`The server has started and is listening on port number: ${port}`);
 });
 
- function sendJsonData() {
-  app.post('/', function (req, res) {
-    console.log(sendJson);
-
-    const request = sendJson
-    const options = {
-      method: 'POST',
-      json: true,
-      url: "localhost:8085/api/v1/parseJson",
-    }
-    request(options, function (error, response, body) {
-      console.log(response);
-    });
-
-  })
-}
 
 
 
