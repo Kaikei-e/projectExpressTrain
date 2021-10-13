@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const path = require('path');
 
-const sendJson = require("/app/projectDD/test.json")
+const sendJson = require("./static/test.json")
 
 app.use(express.static("./static/"))
 
@@ -19,7 +19,8 @@ app.get("/", (request, response) => {
     url: "localhost:8085/api/v1/parseJson",
   }
   request(options, function (error, response, body) {
-    response.redirect("/localhost:8085/api/v1/parseJson")
+    console.log("///////////////////////");
+    console.log(response);
   });
 
 
