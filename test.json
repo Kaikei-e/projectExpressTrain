@@ -1,37 +1,4 @@
-const port = 3000;
-const express = require("express");
-const app = express();
-const path = require('path');
-
-const sendJson = require("/app/projectDD/test.json")
-
-app.get("/", (request, response) => {
-  response.sendFile(path.join(__dirname, '/static/index.html'))
-
-}).listen(port, () => {
-  console.log(`The server has started and is listening on port number: ${port}`);
-});
-
-export function sendJsonData() {
-  app.post('/', function (req, res) {
-    console.log(sendJson);
-
-    const request = sendJson
-    const options = {
-      method: 'POST',
-      json: true,
-      url: "localhost:8085/api/v1/parseJson",
-    }
-    request(options, function (error, response, body) {
-      console.log(response);
-    });
-
-  })
-}
-
-
-
-const sendData = [
+[
   {
     "_id": "6166eb78bdcb2b2424e6230f",
     "index": 0,
