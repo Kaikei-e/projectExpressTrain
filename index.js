@@ -2,21 +2,29 @@ const port = 3000;
 const express = require("express");
 const app = express();
 const path = require('path');
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
 
 const sendJson = require("./static/test.json")
 
 app.use(express.static("./static/"))
 
+app.use('/api', createProxyMiddleware({
+  target: ' http://10.0.2.2:8080/api/', changeOrigin: true, pathRewrite: {
+    '^/api/': '/api/'
+  }
+}));
+
 app.get("/", (request, response) => {
   response.sendFile('index.html')
 
-}).post('/', function (req, res) {
+}).post('/a', function (req, res) {
 
   const request = require("request")
   const options = {
     method: 'POST',
     json: sendJson,
-    url: "localhost:8085/api/v1/parseJson",
+    url: "/api/v1/parseJson",
   }
   request(options, function (error, response, body) {
     console.log("///////////////////////");
@@ -28,7 +36,6 @@ app.get("/", (request, response) => {
 }).listen(port, () => {
   console.log(`The server has started and is listening on port number: ${port}`);
 });
-
 
 
 
