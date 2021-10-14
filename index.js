@@ -11,7 +11,7 @@ app.use(express.static("./static/"))
 
 app.use('/api', createProxyMiddleware({
   target: ' http://server:8085/', changeOrigin: true, pathRewrite: {
-    '^/api/': '/api/v1/'
+    '^/api/': '/api/'
   }
 }));
 
@@ -19,20 +19,22 @@ app.get("/", (request, response) => {
   response.sendFile('index.html')
 
 }).post('/', function (req, res) {
+  /*
   console.log("---------------------------");
-  console.log(req)
+
+  let data = req.body
   
   const request = require("request")
   const options = {
     method: 'POST',
-    json: req,
+    json: data,
     url: "localhost:3000/api/v1/parseJson",
   }
   request(options, function (error, response, body) {
     console.log(response);
   });
   
-
+  */
 
 
 }).listen(port, () => {

@@ -6,16 +6,38 @@
 </head>
 
 <body>
-  <form id="theForm" method="post" action="#">
+  <form class="theForm">
     <input type="text" id="jsData" />
     <label>Send API</label>
-    <input type="submit" id="sender" />
+    <input type="button" class="btn" />
   </form>
-  <pre id="output"></pre>
 </body>
 
 <script>
+  const fetchForm = document.querySelector(".theForm");
+  const btn = document.querySelector(".btn")
 
+  const postFetch = () => {
+    let formData = new FormData(fetchForm);
+
+  
+    
+    fetch('/api/v1/parseJson', {　 // 送信先URL
+      method: 'post', // 通信メソッド
+      header: {
+        'Content-Type': 'application/json' // JSON形式のデータのヘッダー
+      },
+      body: formData // JSON形式のデータ
+    })
+      .then(response => response.text())
+      .then(formData => {
+        console.log(formData);
+      })
+  };
+  
+  btn.addEventListener('click', postFetch, false);
+
+/*
   const getFormJSON = (form) => {
     const data = new FormData(form);
     return Array.from(data.keys()).reduce((result, key) => {
@@ -25,7 +47,7 @@
   };
 
   document.addEventListener("DOMContentLoaded", function () {
-    let theForm = document.getElementById("theForm");
+    let theForm = document.querySelector("theForm");
     let output = document.getElementById("output");
     
     theForm.addEventListener("submit", function(e){
@@ -34,7 +56,7 @@
       let data = document.getElementById('jsData')
 
       console.log('///////////////////////////')
-      let fd = new FormData();
+      let fd = new FormData(theForm);
       fd.append('data', JSON.stringify(data));
   
       fetch('/', {　 // 送信先URL
@@ -51,7 +73,7 @@
     })
   })
 
-
+*/
 </script>
 
 
