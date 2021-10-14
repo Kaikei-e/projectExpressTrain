@@ -6,29 +6,45 @@
 </head>
 
 <body>
-  <form class="theForm">
-    <input type="text" id="jsData" />
+  <form id="theForm">
+    <label>JSON</label>
+    <input name="jsData" type="text" id="jsData" required />
     <label>Send API</label>
     <input type="button" class="btn" />
   </form>
 </body>
 
 <script>
-  const fetchForm = document.querySelector(".theForm");
+  /*
+  let fetchForm = document.getElementById("theForm")
+  let formData = fetchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let fd = new FormData(fetchForm);
+  
+    return fd;
+  });
+  */
+  let formData;
+
+  document.getElementById("jsData").addEventListener("change", function(e){
+    e.defaultPrevented;
+  
+    formData = document.getElementById("jsData").value;
+  });
   const btn = document.querySelector(".btn")
 
   const postFetch = () => {
-    let formData = new FormData(fetchForm);
 
-    let formDataParsed = JSON.stringify(formData)
+    let formDataParsed = JSON.parse(formData)
   
+    console.log(formDataParsed[0]);
     
     fetch('/api/v1/parseJson', {　 // 送信先URL
       method: 'post', // 通信メソッド
       header: {
         'Content-Type': 'application/json' // JSON形式のデータのヘッダー
       },
-      body: formDataParsed // JSON形式のデータ
+      body: formDataParsed[0] // JSON形式のデータ
     })
       .then(response => response.text())
       .then(formDataParsed => {
