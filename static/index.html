@@ -42,9 +42,9 @@
     fetch('/api/v1/parseJson', {　 // 送信先URL
       method: 'post', // 通信メソッド
       header: {
-        'Content-Type': 'application/json' // JSON形式のデータのヘッダー
+        'Content-Type': 'application/JSON' // JSON形式のデータのヘッダー
       },
-      body: formDataParsed[0] // JSON形式のデータ
+      body: formDataParsed // JSON形式のデータ
     })
       .then(response => response.text())
       .then(formDataParsed => {
