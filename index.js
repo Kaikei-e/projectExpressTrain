@@ -19,6 +19,7 @@ app.get("/", (request, response) => {
   response.sendFile('index.html')
 
 }).post('/', function (req, res) {
+  console.log("---------------------------");
   console.log(req)
   
   const request = require("request")
@@ -28,7 +29,6 @@ app.get("/", (request, response) => {
     url: "localhost:3000/api/v1/parseJson",
   }
   request(options, function (error, response, body) {
-    console.log("///////////////////////");
     console.log(response);
   });
   

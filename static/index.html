@@ -6,34 +6,50 @@
 </head>
 
 <body>
-  <form>
+  <form id="theForm" method="post" action="#">
     <input type="text" id="jsData" />
     <label>Send API</label>
-    <button type="submit" id="sender">submit</button>
+    <input type="submit" id="sender" />
   </form>
+  <pre id="output"></pre>
 </body>
 
 <script>
-  let data = document.getElementById("jsData")
 
-  dataParsed = JSON.parse(data)
+  const getFormJSON = (form) => {
+    const data = new FormData(form);
+    return Array.from(data.keys()).reduce((result, key) => {
+      result[key] = data.get(key);
+      return result;
+    }, {});
+  };
 
-  sender.onclick = () => {
-    console.log(dataParsed)
+  document.addEventListener("DOMContentLoaded", function () {
+    let theForm = document.getElementById("theForm");
+    let output = document.getElementById("output");
+    
+    theForm.addEventListener("submit", function(e){
+      e.preventDefault()
 
-    fetch('/', {　 // 送信先URL
-      method: 'post', // 通信メソッド
-      header: {
-        'Content-Type': 'application/json' // JSON形式のデータのヘッダー
-      },
-      //body: JSON.stringify(data) // JSON形式のデータ
-      body: dataParsed
+      let data = document.getElementById('jsData')
+
+      console.log('///////////////////////////')
+      let fd = new FormData();
+      fd.append('data', JSON.stringify(data));
+  
+      fetch('/', {　 // 送信先URL
+        method: 'post', // 通信メソッド
+        header: {
+          'Content-Type': 'application/json' // JSON形式のデータのヘッダー
+        },
+        body: fd // JSON形式のデータ
+      })
+        .then(response => response.text())
+        .then(fd => {
+          console.log(fd);
+        })
     })
-      .then(response => response.text())
-      .then(data => {
-        console.log(data);
-      });
-  }
+  })
 
 
 </script>
