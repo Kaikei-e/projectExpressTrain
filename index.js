@@ -10,26 +10,28 @@ const sendJson = require("./static/test.json")
 app.use(express.static("./static/"))
 
 app.use('/api', createProxyMiddleware({
-  target: ' http://10.0.2.2:8080/api/', changeOrigin: true, pathRewrite: {
-    '^/api/': '/api/'
+  target: ' http://server:8085/', changeOrigin: true, pathRewrite: {
+    '^/api/': '/api/v1/'
   }
 }));
 
 app.get("/", (request, response) => {
   response.sendFile('index.html')
 
-}).post('/a', function (req, res) {
-
+}).post('/', function (req, res) {
+  console.log(req)
+  
   const request = require("request")
   const options = {
     method: 'POST',
-    json: sendJson,
-    url: "/api/v1/parseJson",
+    json: req,
+    url: "localhost:3000/api/v1/parseJson",
   }
   request(options, function (error, response, body) {
     console.log("///////////////////////");
     console.log(response);
   });
+  
 
 
 

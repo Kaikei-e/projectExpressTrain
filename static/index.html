@@ -2,16 +2,41 @@
   <title>Fast Landing Page</title>
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" />   
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" />
 </head>
 
-  <body>
-    <form method="POST" action="/api">
-      <input type="text"/> 
-      <label>Send API</label>
-      <input type="submit" />
-    </form>
-  </body>
+<body>
+  <form>
+    <input type="text" id="jsData" />
+    <label>Send API</label>
+    <button type="submit" id="sender">submit</button>
+  </form>
+</body>
+
+<script>
+  let data = document.getElementById("jsData")
+
+  dataParsed = JSON.parse(data)
+
+  sender.onclick = () => {
+    console.log(dataParsed)
+
+    fetch('/', {　 // 送信先URL
+      method: 'post', // 通信メソッド
+      header: {
+        'Content-Type': 'application/json' // JSON形式のデータのヘッダー
+      },
+      //body: JSON.stringify(data) // JSON形式のデータ
+      body: dataParsed
+    })
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+      });
+  }
+
+
+</script>
 
 
 </html>
